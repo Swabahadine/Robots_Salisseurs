@@ -23,18 +23,22 @@ public abstract class Robot implements RobotInterface{
 
     protected void moveToBottom(){
         this.move(1, 0);
+        System.out.println(this.toString() + " s'est déplacé vers le BAS");
     }
 
     protected void moveToTop(){
         this.move(-1, 0);
+        System.out.println(this.toString() + " s'est déplacé vers le HAUT");
     }
 
     protected void moveToRight(){
         this.move(0, 1);
+        System.out.println(this.toString() + " s'est déplacé vers la DROITE");
     }
 
     protected void moveToLeft(){
         this.move(0, -1);
+        System.out.println(this.toString() + " s'est déplacé vers la GAUCHE");
     }
 
     public int getCoordI() {

@@ -22,11 +22,8 @@ public class RobotIdiot extends Robot {
         int coordJ = this.getCoordJ();
 
         int choixDeplacement = Utiles.getRandomNumberInRange(0, 3);
-        System.out.println("Move Robot idiot, id " + getNumeroSerie());
-        System.out.println("Coord i, j " + this.getCoordI() + " "+ this.getCoordJ());
         switch (choixDeplacement){
             case LEFT:
-                System.out.println("choix LEFT");
                 if (m.isMoveToLeftPossible(coordI, coordJ)){
                     moveToLeft();
                 }
@@ -35,7 +32,6 @@ public class RobotIdiot extends Robot {
                 }
                 break;
             case TOP:
-                System.out.println("choix TOP");
                 if (m.isMoveToTopPossible(coordI, coordJ)){
                     moveToTop();
                 }
@@ -44,7 +40,6 @@ public class RobotIdiot extends Robot {
                 }
                 break;
             case RIGHT:
-                System.out.println("choix RIGHT");
                 if (m.isMoveToRightPossible(coordI, coordJ)){
                     moveToRight();
                 }
@@ -53,7 +48,6 @@ public class RobotIdiot extends Robot {
                 }
                 break;
             case BOTTOM:
-                System.out.println("choix BOTTOM");
                 if (m.isMoveToBottomPossible(coordI, coordJ)){
                     moveToBottom();
                 }
@@ -62,16 +56,19 @@ public class RobotIdiot extends Robot {
                 }
                 break;
         }
-        System.out.println("Coord i, j " + this.getCoordI() + " "+ this.getCoordJ());
-
     }
 
     @Override
     public void action(Monde m) {
         int r = Utiles.getRandomNumberInRange(0, 100);
         if (r <= probabilite) {
-            System.out.println("Action Robot idiot");
             m.putPapier(getCoordI(), getCoordJ());
+            System.out.println(this.toString() + " a DÉPOSÉ un pipier gras sur la case ");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "I" + getNumeroSerie();
     }
 }

@@ -3,12 +3,11 @@ package monde;
 import pile.ListeLIFO;
 import robot.Robot;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Monde implements MondeInterface {
     private final int dimension;
-    private final ListeLIFO<PapierGras>[][] terrain;
+    private final ListeLIFO[][] terrain;
     private List<Robot> robots;
     private int tour = 0;
 
@@ -16,17 +15,20 @@ public class Monde implements MondeInterface {
         this.dimension = dimension;
         this.robots = robots;
         terrain = new ListeLIFO[dimension][dimension];
+        // initialise les cases du terrain à une pile vide
         for (int i = 0; i < dimension; i++){
             for (int j = 0; j < dimension; j++){
-                terrain[i][j] = new ListeLIFO();
+                terrain[i][j] = new ListeLIFO<PapierGras>();
             }
         }
     }
 
     @Override
     public void nextRound() {
-        robots.get(tour).action(this);
-        robots.get(tour).move(this);
+        Robot robot = robots.get(tour);
+        System.out.println("C'est au tour de " + robot);
+        robot.move(this);
+        robot.action(this);
         tour = (tour + 1) % robots.size();
     }
 
@@ -42,17 +44,14 @@ public class Monde implements MondeInterface {
         for (ListeLIFO[] ligne : terrain){
             int j = 0;
             for (ListeLIFO caseTerrain: ligne){
-                int idRobot = -1;
+                String caseStr = caseTerrain.toString() + "  ";
                 for (Robot robot: robots){
                     if (robot.getCoordI() == i && robot.getCoordJ() == j){
-                        idRobot = robot.getNumeroSerie();
+                        caseStr = robot.toString() + " ";
                         break;
                     }
                 }
-                if (idRobot >= 0){
-                    t+= "R" + idRobot+ " ";
-                }
-                else t+= caseTerrain.toString() + "  ";
+                t+= caseStr;
                 j++;
             }
             i++;
@@ -66,11 +65,13 @@ public class Monde implements MondeInterface {
         pile.push(new PapierGras());
     }
 
-    public void removePapier(int i, int j){
+    public boolean removePapier(int i, int j){
         ListeLIFO<PapierGras> pile = terrain[i][j];
         if (!pile.isEmpty()) {
             pile.pop();
+            return true;
         }
+        return false;
     }
 
     public boolean isMoveToLeftPossible(int i, int j){

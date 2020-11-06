@@ -59,6 +59,14 @@ public class NettoyeurNormal extends Robot {
 
     @Override
     public void action(Monde m) {
-        m.removePapier(this.getCoordI(), this.getCoordJ());
+        boolean isRemoved = m.removePapier(this.getCoordI(), this.getCoordJ());
+        if (isRemoved){
+            System.out.println(this.toString() + " a RETIRÉ un pipier gras de la case");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "N" + getNumeroSerie();
     }
 }
