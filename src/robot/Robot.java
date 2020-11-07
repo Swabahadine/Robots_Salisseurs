@@ -22,36 +22,16 @@ public abstract class Robot {
     public abstract void move(Monde m);
     public abstract void action(Monde m);
 
-    /**
-     * Pour logger le deplacement d'un robot
-     * @param dI
-     * @param dJ
-     */
-    private void loggerMove(int dI, int dJ){
-        String log = String.format("%s a fait une translation de (%d,%d):", toString(), dI, dJ);
-        System.out.println(log);
-        if (dI > 0) {
-            log = String.format("il s'est deplace de %d fois vers le BAS", dI);
-            System.out.print(log);
-        }
-        else {
-            log = String.format("il s'est deplace de %d fois vers le HAUT", Math.abs(dI));
-            System.out.print(log);
-        }
-        if (dJ > 0) {
-            log = String.format(" et %d fois vers la DROITE", dJ);
-            System.out.println(log);
-        }
-        else {
-            log = String.format(" et de %d fois vers la GAUCHE", Math.abs(dJ));
-            System.out.println(log);
-        }
-    }
-
     protected void move(int dI, int dJ){
+        //Log avant déplacement
+        String log = String.format("%s (%d,%d) a fait une translation de (%d,%d):\n",toString(), getCoordI(), getCoordJ(), dI, dJ);
+
         coordI += dI;
         coordJ += dJ;
-        loggerMove(dI, dJ);
+
+        // Log après déplacement
+        log += String.format("il s'est deplace sur la case (%d,%d)",getCoordI(), getCoordJ());
+        System.out.println(log);
     }
 
     protected void moveToBottom(){
