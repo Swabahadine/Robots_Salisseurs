@@ -1,8 +1,8 @@
 package monde;
 
 import robot.Robot;
-import robot.nettoyeur.NettoyeurNormal;
-import robot.pollueur.RobotIdiot;
+import robot.nettoyeur.NettoyeurManiaque;
+import robot.pollueur.PollueurIdiot;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +11,12 @@ public class TestMonde {
     public static void main(String[] args) {
         final int TOURS = 200;
         List<Robot> robots = Arrays.asList(
-                new RobotIdiot(4,6),
-                new RobotIdiot(7,6),
-                new NettoyeurNormal(0,0),
-                new NettoyeurNormal(19,19)
+                new PollueurIdiot(4,6),
+                new PollueurIdiot(7,6),
+                new PollueurIdiot(7,6),
+                new PollueurIdiot(7,6),
+                new PollueurIdiot(7,6),
+                new NettoyeurManiaque(0,0)
 
         );
         Monde monde = new Monde(20, robots);

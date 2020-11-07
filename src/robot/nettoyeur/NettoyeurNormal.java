@@ -3,7 +3,7 @@ package robot.nettoyeur;
 import monde.Monde;
 import robot.Robot;
 
-public class NettoyeurNormal extends Robot {
+public class NettoyeurNormal extends Nettoyeur {
     private final int LEFT = -1;
     private final int RIGHT = 1;
     private final int TOP = 1;
@@ -54,14 +54,6 @@ public class NettoyeurNormal extends Robot {
                 dy = BOTTOM;
                 move(m);
             }
-        }
-    }
-
-    @Override
-    public void action(Monde m) {
-        boolean isRemoved = m.removePapier(this.getCoordI(), this.getCoordJ());
-        if (isRemoved){
-            System.out.println(this.toString() + " a RETIRÉ un pipier gras de la case");
         }
     }
 

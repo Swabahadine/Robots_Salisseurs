@@ -1,18 +1,16 @@
 package robot.pollueur;
 
 import monde.Monde;
-import robot.Robot;
-import robot.RobotInterface;
 import utils.Utiles;
 
-public class RobotIdiot extends Robot {
-    private final double probabilite = 20;
+public class PollueurIdiot extends Pollueur {
+    private final int probabilite = 20; // en pourcentage
     private final int LEFT = 0;
     private final int TOP = 1;
     private final int RIGHT = 2;
     private final int BOTTOM = 3;
 
-    public RobotIdiot(int coordI, int coordJ) {
+    public PollueurIdiot(int coordI, int coordJ) {
         super(coordI, coordJ);
     }
 
@@ -59,13 +57,11 @@ public class RobotIdiot extends Robot {
     }
 
     @Override
-    public void action(Monde m) {
-        int r = Utiles.getRandomNumberInRange(0, 100);
-        if (r <= probabilite) {
-            m.putPapier(getCoordI(), getCoordJ());
-            System.out.println(this.toString() + " a DÉPOSÉ un pipier gras sur la case ");
-        }
+    protected int getProbabilite() {
+        return probabilite;
     }
+
+
 
     @Override
     public String toString() {

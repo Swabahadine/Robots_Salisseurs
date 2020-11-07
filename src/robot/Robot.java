@@ -1,6 +1,8 @@
 package robot;
 
-public abstract class Robot implements RobotInterface{
+import monde.Monde;
+
+public abstract class Robot {
     private int coordI;
     private int coordJ;
     private int numeroSerie;
@@ -16,29 +18,56 @@ public abstract class Robot implements RobotInterface{
         this.coordJ = coordJ;
     }
 
+    // méthodes abstraites:
+    public abstract void move(Monde m);
+    public abstract void action(Monde m);
+
+    /**
+     * Pour logger le deplacement d'un robot
+     * @param dI
+     * @param dJ
+     */
+    private void loggerMove(int dI, int dJ){
+        String log = String.format("%s a fait une translation de (%d,%d):", toString(), dI, dJ);
+        System.out.println(log);
+        if (dI > 0) {
+            log = String.format("il s'est deplace de %d fois vers le BAS", dI);
+            System.out.print(log);
+        }
+        else {
+            log = String.format("il s'est deplace de %d fois vers le HAUT", Math.abs(dI));
+            System.out.print(log);
+        }
+        if (dJ > 0) {
+            log = String.format(" et %d fois vers la DROITE", dJ);
+            System.out.println(log);
+        }
+        else {
+            log = String.format(" et de %d fois vers la GAUCHE", Math.abs(dJ));
+            System.out.println(log);
+        }
+    }
+
     protected void move(int dI, int dJ){
         coordI += dI;
         coordJ += dJ;
+        loggerMove(dI, dJ);
     }
 
     protected void moveToBottom(){
         this.move(1, 0);
-        System.out.println(this.toString() + " s'est déplacé vers le BAS");
     }
 
     protected void moveToTop(){
         this.move(-1, 0);
-        System.out.println(this.toString() + " s'est déplacé vers le HAUT");
     }
 
     protected void moveToRight(){
         this.move(0, 1);
-        System.out.println(this.toString() + " s'est déplacé vers la DROITE");
     }
 
     protected void moveToLeft(){
         this.move(0, -1);
-        System.out.println(this.toString() + " s'est déplacé vers la GAUCHE");
     }
 
     public int getCoordI() {
@@ -51,13 +80,5 @@ public abstract class Robot implements RobotInterface{
 
     public int getNumeroSerie() {
         return numeroSerie;
-    }
-
-    public void setCoordI(int coordI) {
-        this.coordI = coordI;
-    }
-
-    public void setCoordJ(int coordJ) {
-        this.coordJ = coordJ;
     }
 }

@@ -25,11 +25,13 @@ public class Monde implements MondeInterface {
 
     @Override
     public void nextRound() {
-        Robot robot = robots.get(tour);
-        System.out.println("C'est au tour de " + robot);
-        robot.move(this);
-        robot.action(this);
-        tour = (tour + 1) % robots.size();
+        robots.stream().forEach(robot -> {
+            System.out.println();
+            robot.move(this);
+            robot.action(this);
+        });
+        System.out.println();
+
     }
 
     @Override
@@ -37,11 +39,37 @@ public class Monde implements MondeInterface {
         return dimension;
     }
 
+    public int numberOfPapierGrasInCase(int i, int j) {
+        return terrain[i][j].size();
+    }
+
+    private String indiceCol(){
+        String DECAL = "    ";
+        String strCol = DECAL;
+        for (int i = 0; i < getDimension(); i++){
+            if (i < 10) strCol+= i + "  ";
+            else strCol+= i + " ";
+        }
+        strCol+="\n" + DECAL;
+        for (int i = 0; i < getDimension(); i++){
+            strCol+="---";
+        }
+        return strCol+"\n";
+    }
+
+    private String indiceRow(int i){
+        if (i < 10){
+            return " " + i + " |";
+        }
+        return i + " |";
+    }
+
     @Override
     public String toString() {
-        String t = "";
+        String t = indiceCol();
         int i = 0;
         for (ListeLIFO[] ligne : terrain){
+            t += indiceRow(i);
             int j = 0;
             for (ListeLIFO caseTerrain: ligne){
                 String caseStr = caseTerrain.toString() + "  ";
