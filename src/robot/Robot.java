@@ -5,7 +5,7 @@ import monde.Monde;
 public abstract class Robot {
     private int coordI;
     private int coordJ;
-    private int numeroSerie;
+    private final int numeroSerie;
     protected static int globalNumeroSerie = 0;
 
     public Robot() {
